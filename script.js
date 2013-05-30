@@ -1,8 +1,8 @@
 var svg = d3.select("#container")[0][0];
-var width = svg.clientWidth/2;
-var height = svg.clientHeight/2;
-var x = width - 100;
-var y = height - 80; //moved up by 5
+var width = svg.clientWidth;
+var height = svg.clientHeight;
+var x = width/2 - 100;
+var y = height/2 - 80; //moved up by 5
 // console.log(x + " " + y);
 d3.select("rect")
 	.attr("x", x)
@@ -44,18 +44,18 @@ function transition(val){
 		.call(drag);
 	rect.transition()
 		.delay(600)
-		.duration(2000)
+		.duration(1000)
 			.attr("width", "44px")
 			.attr("height", "44px")
 			.attr("x", x + 78)
 			.attr("y", y + 58);
 }
 
-function dragmove() {
+function dragmove(d) {
 	console.log("drag event");
-	console.log(this);
+	console.log(d);
 	console.log(d3.event);
 	d3.select(this)
-		.attr("x", function(d) {return d.x += d3.event.dx;})
-		.attr("y", function(d) {return d.y += d3.event.dy;});
+		.attr("x", d.x = Math.max(0, Math.min(width - 44, d3.event.x)))
+		.attr("y", d.y = Math.max(0, Math.min(height - 44, d3.event.y)));
 }
