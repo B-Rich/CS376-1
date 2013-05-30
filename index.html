@@ -5,14 +5,19 @@
 		<link href="normalize.css" rel="stylesheet" type="text/css">
 		<link href="styles.css" rel="stylesheet" type="text/css">
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<script src="script.js" charset="utf-8"></script>
     </head>
     <body>
-		<div id="form">
-        <form name="noteForm" onSubmit="return handleClick()">
-            <textarea id="note"></textarea><br />
-			<input name="Submit"  type="submit" value="Create!" id="submit"></input>
-        </form>
-		<div>
+		<div id="container">
+		<svg width="100%" height="100%" id="mainsvg">
+		    <rect width="200" height="100" fill="grey"/>
+		    <foreignObject width="200" height="150" id="formobject">
+				<form name="noteForm" onSubmit="return handleClick()">
+		            <textarea id="note"></textarea><br />
+					<input name="Submit"  type="submit" value="Create!" id="submit"></input>
+		        </form>
+		    </foreignObject>
+		</svg>
+		</div>
     </body>
+	<script src="script.js" charset="utf-8"></script>
 </html>

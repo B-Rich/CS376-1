@@ -1,3 +1,20 @@
+var svg = d3.select("#container")[0][0];
+var width = svg.clientWidth/2;
+var height = svg.clientHeight/2;
+var x = width - 100;
+var y = height - 80; //moved up by 5
+// console.log(x + " " + y);
+d3.select("rect")
+	.attr("x", x)
+	.attr("y", y);
+d3.select("#formobject")
+	.attr("x", x)
+	.attr("y", y);
+var note;
+var drag = d3.behavior.drag()
+	.origin(Object)
+	.on("drag", dragmove);
+
 function handleClick(event){
     console.log(document.getElementById("note").value);
     transition(document.getElementById("note").value);
@@ -5,14 +22,40 @@ function handleClick(event){
 }
 
 function transition(val){
-    var textarea = d3.select("textarea#note")
+	note = val;
+    d3.select("#note")
 		.transition()
-		.duration(3000) //3 secs
-			.style("width", "1px")
-			.style("height", "1px");
+		.duration(500)
+			.style("border-radius", "80px")
+			.style("background", "grey")
+			.style("opacity", 0);
 	d3.select("#submit")
 		.transition()
-		.duration(3000)
-			.style("opacity", 0)
+		.duration(500)
+			.style("opacity", 0);
+	d3.select("#formobject")
+		.transition()
+		.delay(600)
 		.remove();
+	var rect = d3.select("rect")
+		.data([{x:x + 78, y:y+58}])
+		.attr("rx", 60)
+		.attr("ry", 60)
+		.call(drag);
+	rect.transition()
+		.delay(600)
+		.duration(2000)
+			.attr("width", "44px")
+			.attr("height", "44px")
+			.attr("x", x + 78)
+			.attr("y", y + 58);
+}
+
+function dragmove() {
+	console.log("drag event");
+	console.log(this);
+	console.log(d3.event);
+	d3.select(this)
+		.attr("x", function(d) {return d.x += d3.event.dx;})
+		.attr("y", function(d) {return d.y += d3.event.dy;});
 }
