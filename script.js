@@ -1,15 +1,15 @@
 //Constants
 var width = 320;
-	height = 356, //356
-	margin = {top: 20, right: 10, bottom: 20, left: 10},
-	formh = height-margin.top-margin.bottom,
-	formw = width-margin.right-margin.left,
-	submith = 36 + 10,
-	texth = 96,
-	totalh = texth + submith,
-	cdiameter = 70,
-	radius = Math.min(width, height) / 2,
-    color = d3.scale.category20c();
+var height = 356; //356
+var margin = {top: 20, right: 10, bottom: 20, left: 10};
+var formh = height-margin.top-margin.bottom;
+var formw = width-margin.right-margin.left;
+var submith = 36 + 10;
+var texth = 96;
+var totalh = texth + submith;
+var cdiameter = 70;
+var radius = (Math.max(width, height) + 200) / 2;
+var color = d3.scale.category20c();
 var tags = ["tag1", "tag2", "tag3"];
 
 //Setup
@@ -40,8 +40,8 @@ var drag = d3.behavior.drag()
 //     .size([2 * Math.PI, radius * radius])
 //     .value(function(d) { return 1; });
 var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(radius - 70);
+    .outerRadius(radius)
+    .innerRadius(80);
 var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { return 1; });
@@ -88,14 +88,25 @@ function transition(){
 	//Generate Sunburst
 	var svg = d3.select("svg")
 		.insert("g", "rect")
-		    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+			.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 	var g = svg.selectAll(".arc")
-      .data(pie(tags))
+		.data(pie(tags))
     .enter().append("g")
-      .attr("class", "arc");
+		.attr("class", "arc")
+		.style("opacity", 0);
 	g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d, i) { return color(i); });
+		.attr("d", arc)
+		.style("fill", function(d, i) { return color(i); });
+	g.append("text")
+		.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+		.attr("dy", ".35em")
+		.style("text-anchor", "middle")
+		.text(function(d) { return d.data; });
+	g.transition()
+		.delay(1500)
+		.duration(1000)
+		.style("opacity", 100);
+			
 }
 
 function dragmove(d) {
