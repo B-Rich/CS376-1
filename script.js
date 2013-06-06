@@ -163,8 +163,15 @@ function dragend(d) {
 		.attr("x", d.x += 0)
 		.attr("y", d.y += 0);
 	//console.log(Math.min((width/5) * (dragdx/direction), width/3) + ", " + Math.min((width/5) * (dragdy/direction), width/3));
+<<<<<<< HEAD
 	//console.log(d3.select(document.elementFromPoint(eventx+40, eventy+40)));
 	//console.log(document.elementFromPoint(eventx+40, eventy+40));
+=======
+	tag = d3.select(document.elementFromPoint(d3.event.sourceEvent.x+40, d3.event.sourceEvent.y+40))[0][0].__data__.data;
+	 console.log(tag);
+	// console.log((width/5) * (dragdx/direction)+", "+(height/5) * (dragdy/direction));
+	// console.log(Math.min((width/5) * (dragdx/direction), width/4)+", "+Math.min((height/5) * (dragdy/direction), height/4));
+>>>>>>> d4fb463465b65c96d6f676331a56b9560ec6bd3d
 	dragdx = 0;
 	dragdy = 0;
 	//tag = d3.select(document.elementFromPoint(eventx+40, eventy+40))[0][0].__data__.data;
