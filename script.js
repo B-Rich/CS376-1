@@ -153,7 +153,7 @@ function dragend(d) {
 		.attr("y", d.y += Math.min((height/5) * (dragdy/direction), height/5));
 	//console.log(Math.min((width/5) * (dragdx/direction), width/3) + ", " + Math.min((width/5) * (dragdy/direction), width/3));
 	tag = d3.select(document.elementFromPoint(d3.event.sourceEvent.x+40, d3.event.sourceEvent.y+40))[0][0].__data__.data;
-	// console.log(tag);
+	 console.log(tag);
 	// console.log((width/5) * (dragdx/direction)+", "+(height/5) * (dragdy/direction));
 	// console.log(Math.min((width/5) * (dragdx/direction), width/4)+", "+Math.min((height/5) * (dragdy/direction), height/4));
 	dragdx = 0;
